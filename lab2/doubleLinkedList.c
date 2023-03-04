@@ -113,7 +113,7 @@ dl_list * reflectList(dl_list *last) {
         node = node -> prev;
         if (node) {
             printf("\nCurrent node: %d, Next: %d, Prev: %d, Data: %f",
-                   pointer, pointer->next, pointer->prev, pointer->data);
+                   pointer, pointer -> next, pointer -> prev, pointer -> data);
         }
     }
     printf("\nLast node: %d, Next: %d, Prev: %d, Data: %f\n",
