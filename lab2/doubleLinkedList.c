@@ -83,7 +83,7 @@ dl_list * clearList(dl_list *last) {
         counter++;
     }
     printf("\n%u nodes were released", counter);
-    return curr;
+    return NULL;
 }
 
 // Auxiliary functions
@@ -141,13 +141,8 @@ int main() {
         printf("\nReflects nodes...\n");
         pointer = reflectList(pointer);
 
-
         printf("\nClearing list...\n");
         pointer = clearList(pointer);
-        if (pointer) {
-            printf("\nCritical error...\nClearing was failed");
-            return 1;
-        }
     } else {
         printf("\nInvalid arguments were passed;\n");
     }
