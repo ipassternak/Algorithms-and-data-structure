@@ -77,47 +77,47 @@ dl_list * clearList(dl_list *last) {
     unsigned int counter = 0;
     struct DoubleLinkedList *prev = curr -> prev;
     while (curr) {
-        counter++;
         free(curr);
         curr = prev;
         if (curr) prev = curr -> prev;
+        counter++;
     }
     printf("\n%u nodes were released", counter);
-    return NULL;
+    return curr;
 }
 
 // Auxiliary functions
 
 dl_list * addData(unsigned int lim, double x, double elem, dl_list *pointer) {
     double res = elem;
+    unsigned int counter = 0;
     for (unsigned int i = 1; i <= lim; i++) {
-        printf("\nCurrent node: %d, Next: %d, Prev: %d, Data: %f",
-               pointer, pointer -> next, pointer -> prev, pointer -> data);
         unsigned int par = 2 * i;
         unsigned int numerator = (par - 1) * (par - 1);
         unsigned int denominator = par * par + par;
         elem *= x * x * numerator / denominator;
         res += elem;
         pointer = listPush(pointer, res);
+        printf("\nCurrent node: %d, Next: %d, Prev: %d, Data: %f",
+               pointer, pointer -> next, pointer -> prev, pointer -> data);
+        counter++;
     }
-    printf("\nLast node: %d, Next: %d, Prev: %d, Data: %f\n",
-           pointer, pointer -> next, pointer -> prev, pointer -> data);
+    printf("\n%u nodes were added\n", counter);
     return pointer;
 }
 
 dl_list * reflectList(dl_list *last) {
     dl_list * pointer = last;
     dl_list * node = last;
+    unsigned int counter = 0;
     while (node) {
         pointer = listPush(pointer, node -> data);
         node = node -> prev;
-        if (node) {
-            printf("\nCurrent node: %d, Next: %d, Prev: %d, Data: %f",
-                   pointer, pointer -> next, pointer -> prev, pointer -> data);
-        }
+        printf("\nCurrent node: %d, Next: %d, Prev: %d, Data: %f",
+               pointer, pointer -> next, pointer -> prev, pointer -> data);
+        counter++;
     }
-    printf("\nLast node: %d, Next: %d, Prev: %d, Data: %f\n",
-           pointer, pointer -> next, pointer -> prev, pointer -> data);
+    printf("\n%u nodes were added\n", counter);
     return pointer;
 }
 
@@ -132,6 +132,8 @@ int main() {
     if (x > -1 && x < 1 && lim > 0 && !(lim % 1)) {
         printf("\nInitialising of double linked list...\n");
         dl_list * pointer = initList(x);
+        printf("\nCurrent node: %d, Next: %d, Prev: %d, Data: %f\n",
+               pointer, pointer -> next, pointer -> prev, pointer -> data);
 
         printf("\nAdds nodes...\n");
         pointer = addData(lim, x, x, pointer);
@@ -139,9 +141,13 @@ int main() {
         printf("\nReflects nodes...\n");
         pointer = reflectList(pointer);
 
+
         printf("\nClearing list...\n");
         pointer = clearList(pointer);
-        printf("\nLast node: %d\n", pointer);
+        if (pointer) {
+            printf("\nCritical error...\nClearing was failed");
+            return 1;
+        }
     } else {
         printf("\nInvalid arguments were passed;\n");
     }
