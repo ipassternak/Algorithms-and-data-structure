@@ -85,7 +85,7 @@ int main() {
     printf("Set the limit: ");
     scanf("%d", &lim);
     if (x > -1 && x < 1 && lim > 0 && !(lim % 1)) {
-        printf("\nInitialising of double linked list...\n");
+        printf("\nInitialising of linked list...\n");
         l_list * pointer = initList(x);
         printf("\nCurrent node: %d, Prev: %d, Data: %f\n",
                pointer, pointer -> prev, pointer -> data);
